@@ -1,10 +1,11 @@
 ---
 layout: post
 title: WEBASSEMBLY – EXECUTING MALICIOUS CODE USING SYSTEM()
-description: I think we can do more than this..
+excerpt_separator: <!--more-->
 ---
 
 Adversaries are getting more innovative, less predictable and underscoring society’s need to stay one step ahead of them. In this post I am going to share a technique that came across my mind when I was learning about WebAssembly.
+<!--more-->
 
 > Derived from MDN Web docs: “WebAssembly” is a new type of code that can be run in modern web browsers — it is a low-level assembly-like language with a compact binary format that runs with near-native performance and provides languages such as C/C++ and Rust with a compilation target so that they can run on the web. It is also designed to run alongside JavaScript, allowing both to work together.
 
