@@ -27,7 +27,6 @@ plainwhite:
     - title: Home
       url: "/index.html"
 
-
   social_links:
     twitter: kartikdurg
     github: kartikdurg
@@ -38,11 +37,3 @@ theme: plainwhite
 
 plugins:
   - jekyll-seo-tag
-
-# Exclude these files from your production _site
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE
-  - README.md
-  - CNAME
