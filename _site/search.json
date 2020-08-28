@@ -1,0 +1,111 @@
+[
+  
+    {
+      "title"    : "WEBASSEMBLY – EXECUTING MALICIOUS CODE USING SYSTEM()",
+      "title-lower"    : "webassembly – executing malicious code using system()",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2020/06/29/webassembly-executing-malicious-code-using-system.html",
+      "date"     : "2020-06-29 00:00:00 +0530",
+      "content"     : "Adversaries are getting more innovative, less predictable and underscoring society’s need to stay one step ahead of them. In this post I am going to share a technique that came across my mind when ..."
+    } ,
+  
+    {
+      "title"    : "WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC",
+      "title-lower"    : "windows shellcode – download and execute payload using msiexec",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec.html",
+      "date"     : "2019-01-28 00:00:00 +0530",
+      "content"     : "Hello and welcome! Today I will be sharing a shellcode that came across my mind when I was preparing for my OSCE exam, so this inspired me to write and share my knowledge on how I developed a shell..."
+    } ,
+  
+    {
+      "title"    : "CUSTOM_CRYPTER – LINUX/X86",
+      "title-lower"    : "custom_crypter – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/10/09/0x7-custom-crypter-linux-x86.html",
+      "date"     : "2018-10-09 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 7  Github: Kartik DurgIn this post we wil..."
+    } ,
+  
+    {
+      "title"    : "POLYMORPHIC_SHELLCODE_EXAMPLE – LINUX/X86",
+      "title-lower"    : "polymorphic_shellcode_example – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/10/06/0x6-polymorphic-shellcode-example-linux-x86.html",
+      "date"     : "2018-10-06 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 6  Github: Kartik DurgThe objective of th..."
+    } ,
+  
+    {
+      "title"    : "DISSECTING_METASPLOIT_SHELLCODE – LINUX/X86",
+      "title-lower"    : "dissecting_metasploit_shellcode – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/10/04/0x5-dissecting-metasploit-shellcode-linux-x86.html",
+      "date"     : "2018-10-04 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 5  Github: Kartik DurgIn this post we wil..."
+    } ,
+  
+    {
+      "title"    : "ROT13_XOR_ENCODER_MMX_DECODER_SHELLCODE – LINUX/X86",
+      "title-lower"    : "rot13_xor_encoder_mmx_decoder_shellcode – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/10/02/0x4-rot13-xor-encoder-mmx-decoder-shellcode-linux-x86.html",
+      "date"     : "2018-10-02 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 4  Github: Kartik DurgIn this post I will..."
+    } ,
+  
+    {
+      "title"    : "SHELLCODE_EGG_HUNTER – LINUX/X86",
+      "title-lower"    : "shellcode_egg_hunter – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/09/13/0x3-shellcode-egg-hunter-linux-x86.html",
+      "date"     : "2018-09-13 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 3  Github: Kartik DurgWHAT IS AN EGG-HUNT..."
+    } ,
+  
+    {
+      "title"    : "SHELL_REVERSE_TCP_IPV6 – LINUX/X86",
+      "title-lower"    : "shell_reverse_tcp_ipv6 – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/07/29/0x2-shell-reverse-tcp-ipv6-linux-x86.html",
+      "date"     : "2018-07-29 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 2  Github: Kartik DurgThe objective of th..."
+    } ,
+  
+    {
+      "title"    : "SHELL_BIND_TCP_IPV6 – LINUX/X86",
+      "title-lower"    : "shell_bind_tcp_ipv6 – linux/x86",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "",
+      "tags"     : "",
+      "url"      : "/2018/07/17/0x1-shell-bind-tcp-ipv6-linux-x86.html",
+      "date"     : "2018-07-17 00:00:00 +0530",
+      "content"     : "This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification  Student ID: SLAE-1233  Assignment: 1  Github: Kartik DurgThe objective of th..."
+    } 
+  
+]
