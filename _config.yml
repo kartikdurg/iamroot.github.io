@@ -4,7 +4,7 @@ author: Kartik Durg
 email: iamroot33@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
   Hello world!
-show_excerpts: true # set to true to show excerpts on the homepage
+show_excerpts: false # set to true to show excerpts on the homepage
 
 #paginate: 5
 #paginate_path: "/kartikdurg.github.io/page:num/"
