@@ -25,7 +25,7 @@ plainwhite:
   html_lang: "en" # set the lang attribute of the <html> tag for the pages.
   navigation:
     - title: Home
-      url: "/index.md"
+      url: "/index.html"
 
   social_links:
     twitter: kartikdurg
