@@ -18,7 +18,7 @@ plainwhite:
   date_format: "%b %-d, %Y"
   disqus_shortname: redteam
   analytics_id: UA-176694116-1
-  sitemap: false # set to true to generate sitemap.xml content
+  sitemap: true # set to true to generate sitemap.xml content
   search: true # set to true to enable searchbar
   dark_mode: true # set to true to add dark mode toggle
   portfolio_image: "assets/portfolio.jpg" # the path from the base directory of the site to the image to display (no / at the start)
