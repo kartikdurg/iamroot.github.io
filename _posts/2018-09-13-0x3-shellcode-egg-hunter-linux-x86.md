@@ -1,11 +1,13 @@
 ---
 layout: post
 title: SHELLCODE_EGG_HUNTER – LINUX/X86
+excerpt_separator: <!--more-->
 ---
 This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification
 * Student ID: SLAE-1233
 * Assignment: 3
 * Github: [Kartik Durg](https://github.com/kartikdurg)
+<!--more-->
 
 ___
 

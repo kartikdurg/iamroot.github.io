@@ -1,11 +1,13 @@
 ---
 layout: post
 title: ROT13_XOR_ENCODER_MMX_DECODER_SHELLCODE – LINUX/X86
+excerpt_separator: <!--more-->
 ---
 This blog post has been created for completing the requirements of the SecurityTube Linux Assembly Expert Certification
 * Student ID: SLAE-1233
 * Assignment: 4
 * Github: [Kartik Durg](https://github.com/kartikdurg)
+<!--more-->
 
 ___
 
