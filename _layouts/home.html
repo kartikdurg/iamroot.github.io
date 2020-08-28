@@ -44,7 +44,7 @@ layout: default
         </div>
         <div class="post">
           {%- if site.show_excerpts -%}
-            {{ post.excerpt | truncate: 50 }}
+            {{ post.excerpt }}
           {%- endif -%}
         </div>
       </li>
