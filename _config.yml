@@ -11,6 +11,8 @@ show_excerpts: true # set to true to show excerpts on the homepage
 
 sass:
   sass_dir: _sass
+  
+permalink: /:title/
 
 plainwhite:
   name: Kartik Durg
@@ -27,8 +29,6 @@ plainwhite:
     - title: Home
       url: "/index.html"
   
-  permalink: /:title/
-
   social_links:
     twitter: kartikdurg
     github: kartikdurg
