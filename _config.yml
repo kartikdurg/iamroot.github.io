@@ -12,7 +12,7 @@ show_excerpts: true # set to true to show excerpts on the homepage
 sass:
   sass_dir: _sass
   
-permalink: /:title/
+permalink: /:year/:month/:day/:title/
 
 plainwhite:
   name: Kartik Durg
