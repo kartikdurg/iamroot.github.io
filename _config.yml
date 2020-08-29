@@ -26,6 +26,8 @@ plainwhite:
   navigation:
     - title: Home
       url: "/index.html"
+  
+  permalink: /:title/
 
   social_links:
     twitter: kartikdurg
