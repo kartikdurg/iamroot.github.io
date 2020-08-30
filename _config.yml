@@ -18,7 +18,7 @@ plainwhite:
   name: Kartik Durg
   tagline: Red Team Research @McAfee
   date_format: "%b %-d, %Y"
-  disqus_shortname: redteam
+  disqus_shortname: iamroot
   analytics_id: UA-176694116-1
   sitemap: true # set to true to generate sitemap.xml content
   search: true # set to true to enable searchbar
