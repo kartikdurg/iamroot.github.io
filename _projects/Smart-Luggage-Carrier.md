@@ -4,8 +4,6 @@ excerpt_separator: <!--more-->
 ---
 ___
 
-<img src="/media/SLC.jpg" width="480" height="325">
-
 The proposed "Smart Luggage Carrier" is a small prototype. Here we are using a “Three Wheel Technology” as used in Auto rickshaw and Image processing for the Locomotion. Also adding security features for the luggage in the cart and techniques to avoid object collusion.
 
 ___
