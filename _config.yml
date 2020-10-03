@@ -12,13 +12,16 @@ show_excerpts: true # set to true to show excerpts on the homepage
 sass:
   sass_dir: _sass
   
-permalink: /:year/:month/:day/:title/
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
 
 plainwhite:
   name: Kartik Durg
   tagline: Red Team Research @McAfee
   date_format: "%b %-d, %Y"
-  disqus_shortname: iamroot
+  disqus_shortname: redteam
   analytics_id: UA-176694116-1
   sitemap: true # set to true to generate sitemap.xml content
   search: true # set to true to enable searchbar
@@ -28,14 +31,16 @@ plainwhite:
   navigation:
     - title: Home
       url: "/index.html"
-  
+    - title: Projects
+      url: "/projects.html"
+
   social_links:
     twitter: kartikdurg
     github: kartikdurg
     linkedIn: in/kartikdurg # format: locale/username
 
 # Build settings
-remote_theme: samarsault/plainwhite-jekyll
+theme: plainwhite
 
 plugins:
   - jekyll-seo-tag
