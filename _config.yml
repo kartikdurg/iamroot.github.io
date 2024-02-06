@@ -40,7 +40,7 @@ plainwhite:
     linkedIn: in/kartikdurg # format: locale/username
 
 # Build settings
-theme: plainwhite
+remote_theme: samarsault/plainwhite-jekyll
 
 plugins:
   - jekyll-seo-tag
