@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: forward
 title: How to track WSL2 activity with API hooking
 target: https://www.hackthebox.com/blog/tracking-wsl-activity-with-api-hooking
 excerpt_separator: <!--more-->
